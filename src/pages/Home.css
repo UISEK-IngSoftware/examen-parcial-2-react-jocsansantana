@@ -1,0 +1,17 @@
+.home-container {
+    padding: 20px;
+    background-color: #124a4e;
+    /* Espacio profundo */
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+.home-title {
+    text-align: center;
+    color: #8dc3c7;
+    /* Verde característico */
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}

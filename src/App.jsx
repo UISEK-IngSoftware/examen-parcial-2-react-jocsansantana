@@ -1,17 +1,11 @@
-import './App.css'
-import Header from './components/Header'
-import { Container } from '@mui/material'
-import CharacterList from './components/CharacterList'
+import { Home } from './pages/Home';
+import './App.css';
 
 function App() {
-
   return (
-    <>
-      <Header />
-      <Container>
-        <CharacterList />
-      </Container>
-    </>
+    <div className="App">
+      <Home />
+    </div>
   );
 }
 

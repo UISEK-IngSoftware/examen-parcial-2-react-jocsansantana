@@ -1,58 +1,37 @@
-import { useState, useEffect } from "react";
-import { Grid, Typography, CircularProgress, Alert } from "@mui/material";
-import CharacterCard from "../components/CharacterCard";
-import "./CharacterList.css";
-import { getCharactersList } from "../services/futuramaService"
+// Importación de componentes de Material UI
+import { List, ListItem } from '@mui/material';
 
-export default function CharacterList() {
-    const [characters, setCharacters] = useState([]);
-    const [errorMsg, setErrorMsg] = useState("");
-    const [loading, setLoading] = useState(true);
+// Importación del componente que muestra la información de cada personaje
+import { CharacterCard } from './CharacterCard';
 
-    useEffect(() => {
-        getCharactersList().then((charactersData) => {
-            setCharacters(charactersData);
-        }).catch(() => {
-            setErrorMsg("Error al obtener los personajes");
-        }).finally(() => {
-            setLoading(false);
-        });
-    }, []);
+// Hoja de estilos del componente
+import './CharacterList.css';
 
-    if (loading) {
-        return (
-            <Grid container justifyContent="center" sx={{ mt: 5 }}>
-                <CircularProgress />
-            </Grid>
-        );
-    }
-
-    if (errorMsg !== "") {
-        return (
-            <Alert severity="error" sx={{ mt: 3 }}>
-                {errorMsg}
-            </Alert>
-        );
-    }
-
-    if (characters.length === 0) {
-        return (
-            <Typography
-                align="center"
-                variant="h6"
-                sx={{ mt: 5 }}>
-                Aqui ya no existen personajes para mostrar
-            </Typography>
-        );
-    }
-
+// Componente que recibe la lista de personajes y una función para seleccionar uno
+export const CharacterList = ({ characters, onSelectCharacter }) => {
     return (
-        <Grid container spacing={2}>
-            {characters.map((character) => (
-                <Grid item xs={12} sm={6} md={4} key={character.id}>
-                    <CharacterCard character={character} />
-                </Grid>
+
+        // Contenedor de la lista de personajes
+        <List className="character-list">
+
+            {/* Recorre el arreglo de personajes y crea un elemento por cada uno */}
+            {characters.map((char) => (
+
+                // Cada elemento de la lista representa un personaje
+                <ListItem
+                    key={char.id} // Clave única para optimizar el renderizado
+                    className="list-item"
+
+                    // Al hacer clic sobre un personaje se envía al componente padre
+                    onClick={() => onSelectCharacter(char)}
+                >
+
+                    {/* Tarjeta que muestra la información del personaje */}
+                    <CharacterCard character={char} />
+
+                </ListItem>
             ))}
-        </Grid>
+
+        </List>
     );
-}
+};

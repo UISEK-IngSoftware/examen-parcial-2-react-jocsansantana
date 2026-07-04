@@ -1,48 +1,55 @@
+// Importación de componentes de Material UI
+import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 
-import { Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
-import "./CharacterCard.css";
+// Hoja de estilos del componente
+import './CharacterCard.css';
 
-export default function CharacterCard({ character }) {
+// Componente que recibe un personaje como propiedad y muestra su información
+export const CharacterCard = ({ character }) => {
+
+    // Función que se ejecuta si la imagen no puede cargarse.
+    // En ese caso, se reemplaza por una imagen predeterminada.
+    const handleImageError = (e) => {
+        e.target.src = 'https://via.placeholder.com/250?text=No+Image';
+    };
 
     return (
-        <Card>
+
+        // Tarjeta principal del personaje
+        <Card className="character-card">
+
+            {/* Imagen del personaje */}
             <CardMedia
                 component="img"
-                height="200"
+                height="250"
                 image={character.image}
                 alt={character.name}
+                className="card-image"
+
+                // Si la imagen falla, se muestra una imagen de reemplazo
+                onError={handleImageError}
             />
-            <CardContent>
-                <Typography variant="h6" component="div">
+
+            {/* Contenido de la tarjeta */}
+            <CardContent className="card-content">
+
+                {/* Nombre del personaje */}
+                <Typography variant="h6" className="char-name">
                     {character.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+
+                {/* Género del personaje */}
+                <Typography variant="body2" className="char-info">
                     Género: {character.gender}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+
+                {/* Estado actual del personaje */}
+                <Typography variant="body2" className="char-info">
                     Estado: {character.status}
                 </Typography>
-                <Typography variant="body2">
-                    Especie: {character.species}
-                </Typography>
+
             </CardContent>
-            <CardActions>
-                <Chip
-                    label={character.status}
-                    color="success"
-                    size="small"
-                />
-                <Chip
-                    label={character.gender}
-                    color="secondary"
-                    size="small"
-                />
-                <Chip
-                    label={character.species}
-                    color="primary"
-                    size="small"
-                />
-            </CardActions>
+
         </Card>
-    )
-}
+    );
+};
